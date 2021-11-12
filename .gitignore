@@ -22,6 +22,7 @@ obj
 
 .ENV
 .DS_Store
+*/books.db
 
 # # # # # # # # # # # # react_finder # # # # # # # # # # #
 
