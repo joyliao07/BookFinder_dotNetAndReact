@@ -3,6 +3,8 @@ import Book from "../models/book";
 
 interface Props {
     books: Book[];
+    // funSelectBook: (id: string) => void;
+    // funDeleteBook: (id: string) => void;
 }
 
 const BookList = ({books}: Props) => {
