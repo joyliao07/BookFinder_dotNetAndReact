@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Books;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
 
 namespace API.Controllers
 {
@@ -18,6 +15,7 @@ namespace API.Controllers
         //     _mediator = mediator;
         // }
 
+        // http://localhost:5000/api/books
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetBooks()
         {
