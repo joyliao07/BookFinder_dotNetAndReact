@@ -14,7 +14,8 @@ const BookList = ({books}: Props) => {
                 {books.map(book => (
                     <Item key={book.id}>
                         <Item.Content>
-                            <Item.Header as='a'>{book.bookUrl}</Item.Header>
+                            <Item.Header as='a'>{book.bookTitle}</Item.Header>
+                            <Item.Meta>{book.bookUrl}</Item.Meta>
                             <Item.Meta>{book.date}</Item.Meta>
                             <Item.Description>
                                 <div>{book.status}</div>

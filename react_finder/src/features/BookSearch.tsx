@@ -8,7 +8,7 @@ function BookSearch() {
   let [books, setBooks] = useState([]);
 
   useEffect(() => {
-    axios.get<Book[]>(`https://www.googleapis.com/books/v1/volumes?q=constellation&key=myKey`).then((res: any) => {
+    axios.get<Book[]>("http://localhost:5000/api/search").then((res: any) => {
       console.log(res.data.items);
       setBooks(res.data.items);
     })

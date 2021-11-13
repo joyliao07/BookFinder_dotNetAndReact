@@ -17,6 +17,7 @@ namespace Persistence
             {
                 new Book
                 {
+                    BookTitle = "Vertical Gardening",
                     BookUrl = "https://www.googleapis.com/books/v1/volumes/IYWmAgAAQBAJ",
                     Date = DateTime.Now,
                     UserName = "joyce",
@@ -25,6 +26,7 @@ namespace Persistence
                 },
                 new Book
                 {
+                    BookTitle = "Blank Recipe Book: My Journal of Recipes",
                     BookUrl = "https://www.googleapis.com/books/v1/volumes/goPyAQAACAAJ",
                     Date = DateTime.Now,
                     UserName = "joyce",
@@ -33,6 +35,7 @@ namespace Persistence
                 },
                 new Book
                 {
+                    BookTitle = "The New York Times Cooking No-Recipe Recipes",
                     BookUrl = "https://www.googleapis.com/books/v1/volumes/q47sDwAAQBAJ",
                     Date = DateTime.Now,
                     UserName = "joyce",
@@ -41,6 +44,7 @@ namespace Persistence
                 },
                 new Book
                 {
+                    BookTitle = "Night Sky",
                     BookUrl = "https://www.googleapis.com/books/v1/volumes/3IgWDgAAQBAJ",
                     Date = DateTime.Now,
                     UserName = "joyce",
