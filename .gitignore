@@ -20,8 +20,8 @@ obj
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 
-.ENV
 .DS_Store
+*/appsettings.Development.json
 */books.db
 
 # # # # # # # # # # # # react_finder # # # # # # # # # # #
