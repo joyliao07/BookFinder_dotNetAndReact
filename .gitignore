@@ -24,6 +24,7 @@ obj
 */appsettings.Development.json
 */Migrations
 */books.db
+*/.eslintcache
 
 # # # # # # # # # # # # react_finder # # # # # # # # # # #
 
@@ -42,6 +43,7 @@ obj
 .env.development.local
 .env.test.local
 .env.production.local
+/react_finder_2
 
 npm-debug.log*
 yarn-debug.log*

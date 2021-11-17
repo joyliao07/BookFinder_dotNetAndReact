@@ -1,34 +1,35 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Container } from 'semantic-ui-react';
-import Book from '../models/book';
 import NavBar from './NavBar';
-import BookDashboard from '../features/BookDashboard';
-import BookSearch from '../features/BookSearch';
+import ShelfDashboard from '../features/bookShelf/ShelfDashboard';
+import { observer } from 'mobx-react-lite';
+import { Route, useLocation } from 'react-router-dom';
+import HomePage from '../features/home/HomePage';
+import ShelfBookDetails from '../features/bookShelf/ShelfBookDetails';
+import EditBookForm from '../features/form/EditBookForm';
+import SearchBooks from '../features/search/SearchBooks';
+
 
 function App() {
-  let [books, setBooks] = useState<Book[]>([]);
-  let [selectedBook, setselectedBook] = useState<Book | undefined>();
-  let [editMode, setEditMode] = useState(false);
-
-  useEffect(() => {
-    axios.get<Book[]>("http://localhost:5000/api/books").then((res: any) => {
-      console.log(res.data);
-      setBooks(res.data);
-    })
-  }, [])
+  const location = useLocation();
 
   return (
     <>
-      <NavBar></NavBar>
-      <Container style={{marginTop: '7em'}}>
-        <BookDashboard books={books} selectedBook={selectedBook} editMode={editMode}/>
-      </Container>
-      <Container style={{marginTop: '7em'}}>
-        <BookSearch/>
-      </Container>
+      <Route exact path='/' component={HomePage} />
+      <Route
+        path={'/(.+)'}
+        render={() => (
+          <>
+            <NavBar />
+            <Container style={{ marginTop: '7em' }}>
+              <Route exact path='/books' component={ShelfDashboard} />
+              <Route path='/books/:id' component={ShelfBookDetails} />
+              <Route path='/search' component={SearchBooks} />
+              <Route key={location.key} path='/manage/:id' component={EditBookForm} />
+            </Container>
+          </>
+        )}/>
     </>
   );
 }
 
-export default App;
+export default observer(App);
