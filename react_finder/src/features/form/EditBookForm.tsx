@@ -22,6 +22,10 @@ const EditBookForm = () => {
     const [book, setBook] = useState<Book>({
         id: '',
         bookTitle: '',
+        bookSubtitle: '',
+        author: '',
+        thumbnail: '',
+        notes: '',
         bookUrl: '',
         date: null,
         userName: '',
@@ -31,6 +35,7 @@ const EditBookForm = () => {
 
     const validationSchema = Yup.object({
         date: Yup.string().required('Date is required').nullable(),
+        status: Yup.string().required('Reading stsatus is required.')
     })
 
     useEffect(() => {
@@ -69,10 +74,7 @@ const EditBookForm = () => {
                 <Card.Content>
                     <Card.Header>{book.bookTitle}</Card.Header>
                     <Card.Description>
-                        By ...
-                    </Card.Description>
-                    <Card.Description>
-                        ({book.bookUrl})
+                        By {book.author}
                     </Card.Description>
                 </Card.Content>
             
@@ -82,22 +84,33 @@ const EditBookForm = () => {
                     enableReinitialize 
                     initialValues={book} 
                     onSubmit={values => handleFormSubmit(values)}>
+                        
                     {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                         <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                            <SelectInput options={favoriteOptions} placeholder='Favorite' name='favorite'/>
+                            <SelectInput 
+                                options={favoriteOptions} 
+                                placeholder='Favorite' 
+                                name='favorite'/>
                             <DateInput 
                                 placeholderText='Date'  
                                 name='date' 
                                 dateFormat='MMMM d, yyyy'/>
-                            <SelectInput options={statusOptions} placeholder='Status'  name='status'/>
-                            <NoteInput rows={3} placeholder='Description' name='description'/>
+                            <SelectInput 
+                                options={statusOptions} 
+                                placeholder='Status'  
+                                name='status'/>
+                            <NoteInput 
+                                rows={3} 
+                                placeholder='My notes' 
+                                name='notes' />
                             <Button 
-                                disabled={isSubmitting || !dirty || !isValid}
+                                disabled={isSubmitting || !isValid}
                                 loading={loading} floated='right' 
                                 positive type='submit' content='Submit' />
                             <Button as={Link} to='/books' floated='right' type='button' content='Cancel' />
                         </Form>
                     )}
+
                 </Formik>
                 </Card.Content> 
             </Card>

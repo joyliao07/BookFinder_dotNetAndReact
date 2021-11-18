@@ -8,11 +8,12 @@ interface Props {
     label?: string;
 }
 
-export default function NoteInput(props: Props) {
+ const NoteInput = (props: Props) => {
     const [field, meta] = useField(props.name); 
+
     return (
         <Form.Field error={meta.touched && !!meta.error}>
-            <label>{props.label}</label>
+            <label>Notes: </label>
             <textarea {...field} {...props} />
             {meta.touched && meta.error ? (
                 <Label basic color='red'>{meta.error}</Label>
@@ -20,3 +21,5 @@ export default function NoteInput(props: Props) {
         </Form.Field>
     )
 }
+
+export default NoteInput;

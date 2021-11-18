@@ -1,10 +1,10 @@
 import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
-import ShelfDashboard from '../features/bookShelf/ShelfDashboard';
+import ShelfDashboard from '../features/bookshelf/ShelfDashboard';
 import { observer } from 'mobx-react-lite';
 import { Route, useLocation } from 'react-router-dom';
 import HomePage from '../features/home/HomePage';
-import ShelfBookDetails from '../features/bookShelf/ShelfBookDetails';
+import ShelfBookDetails from '../features/bookshelf/ShelfBookDetails';
 import EditBookForm from '../features/form/EditBookForm';
 import SearchBooks from '../features/search/SearchBooks';
 

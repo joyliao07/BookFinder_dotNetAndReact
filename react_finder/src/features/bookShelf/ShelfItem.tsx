@@ -13,23 +13,21 @@ const ShelfItem = ({ book }: Props) => {
             <Segment>
                 <Item.Group>
                     <Item>
-                        <Item.Image size='tiny' circular  src='http://books.google.com/books/publisher/content?id=IYWmAgAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE717zcEdSOe31uWVZaf-_8yUDczMDKbgyMOSzjAMcUHpW3e95l9d89E8ru-feziaUBklsa5gFGi6ODbOqWLVwMwsMdhu_EpIfMlIpHO0WooO_79VrStDVEr6Zt59n8-6kvgdo2JS&source=gbs_api' />
+                        <Item.Image size='tiny' src={book.thumbnail} />
                         <Item.Content>
                             <Item.Header as={Link} to={`/books/${book.id}`}>
                                 {book.bookTitle}
                             </Item.Header>
-                            <Item.Description>By ...</Item.Description>
+                            <Item.Description>By {book.author}</Item.Description>
                         </Item.Content>
                     </Item>
                 </Item.Group>
             </Segment>
             <Segment>
-                <span>
-                    <Icon name='calendar'/> Book added {format(book.date, 'MMMM dd, yyyy')}
-                </span>
+                <Icon name='calendar'/>Last updated on {format(book.date, 'MMM dd, yyyy')}
             </Segment>
             <Segment secondary>
-                <Icon name='book' /> {book.status}
+                <Icon name='book'/>{book.status}
             </Segment>
             <Segment clearing>
                 <Button 

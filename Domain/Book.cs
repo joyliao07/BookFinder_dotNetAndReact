@@ -8,6 +8,14 @@ namespace Domain
         
         public string BookTitle { get; set; }
 
+        public string BookSubtitle { get; set; }
+
+        public string Author { get; set; }
+
+        public string Thumbnail { get; set; }
+
+        public string Notes { get; set; }
+
         public string BookUrl { get; set; }
 
         public DateTime Date { get; set; }
