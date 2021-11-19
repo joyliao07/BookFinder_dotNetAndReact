@@ -6,8 +6,8 @@ import { Route, useLocation } from 'react-router-dom';
 import HomePage from '../features/home/HomePage';
 import ShelfBookDetails from '../features/bookshelf/ShelfBookDetails';
 import EditBookForm from '../features/form/EditBookForm';
-import SearchBooks from '../features/search/SearchBooks';
-
+import SearchEngine from '../features/search/SearchEngine';
+import SearchResults from '../features/search/SearchResults';
 
 function App() {
   const location = useLocation();
@@ -23,8 +23,8 @@ function App() {
             <Container style={{ marginTop: '7em' }}>
               <Route exact path='/books' component={ShelfDashboard} />
               <Route path='/books/:id' component={ShelfBookDetails} />
-              <Route path='/search' component={SearchBooks} />
-              <Route path='/search/:keyWord' component={HomePage} />
+              <Route path='/search' component={SearchEngine} />
+              <Route path='/search/:keyWord' component={SearchResults} />
               <Route key={location.key} path={['/addBook', '/manage/:id']} component={EditBookForm} />
             </Container>
           </>
