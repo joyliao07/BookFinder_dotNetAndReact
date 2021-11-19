@@ -5,7 +5,6 @@ interface SearchedBook {
     author: string,
     thumbnail: string,
     bookUrl: string,
-
     publishedDate: string, // Date?
     publisher: string,
     category: string, 
@@ -14,7 +13,7 @@ interface SearchedBook {
     ratingsCount: string,
     pageCount: string,
     industryIdentifiersType: string,
-    industryIdentifiersIdentifier: string,
+    industryIdentifier: string,
     buyLink: string
 }
 

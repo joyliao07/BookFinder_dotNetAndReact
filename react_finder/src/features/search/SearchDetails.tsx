@@ -1,75 +1,70 @@
 import { Link } from "react-router-dom";
 import { Button, Card, Image, Segment } from "semantic-ui-react";
+import { useStore } from "../../stores/store";
 
 interface Props {
-    book: any,
-    handleAddBook: (bookId) => void;
+    handleCloseModal: () => void
 }
 
-const SearchDetails = ({book, handleAddBook}: Props) => {
+const SearchDetails = (props :Props) => {
+    const {bookStore} = useStore();
+    const {selectedBookToAdd: book} = bookStore;
 
-    const handleAddBookClick = (bookId: string) => {
-        console.log("handleAddBookClick called");
-        // handleAddBook(bookId);
+    const handleCloseModal = () => {
+        props.handleCloseModal();
     }
-
-    // <Button color='orange' 
-    //         floated='right' 
-    //         onClick={() => handleAddBookClick(book.id)}>
-    //     Add Book
-    // </Button>
 
     return(
         <Card fluid>
             <Card.Content>
                 <Image
-                    src={book.customImageLink}
+                    src={book.thumbnail}
                     size='tiny'
                     floated='left'/>
-                <Card.Header>{book.volumeInfo.title}</Card.Header>
-                <Card.Meta>{book.volumeInfo.subtitle}</Card.Meta>
-                <p>By {book.volumeInfo.authors[0]}</p>
-                <p>Published {book.volumeInfo.publishedDate}</p>
-                <p>{book.volumeInfo.publisher}</p>
+                <Card.Header>{book.title}</Card.Header>
+                <Card.Meta>{book.subtitle}</Card.Meta>
+                <p>By {book.author}</p>
+                <p>Published {book.publishedDate}</p>
+                <p>{book.publisher}</p>
 
                 <Segment.Group>
-                    <Segment>Category: {book.volumeInfo.categories[0]}</Segment>
+                    <Segment>Category: {book.category}</Segment>
                     <Segment.Group>
-                        <Segment>{book.volumeInfo.description}</Segment>
+                        <Segment>{book.description}</Segment>
                     </Segment.Group>
                 </Segment.Group>
 
                 <Segment.Group>
                     <Segment>
-                        <p>Average Rating: {book.volumeInfo.averageRating} </p>
-                        <p>By {book.volumeInfo.ratingsCount} votes</p>
+                        <p>Average Rating: {book.averageRating} </p>
+                        <p>By {book.ratingsCount} votes</p>
                     </Segment>
                 </Segment.Group>
 
                 <Segment.Group>
                     <Segment>
-                        Page Count: {book.volumeInfo.pageCount}
+                        Page Count: {book.pageCount}
                     </Segment>
                     <Segment>
-                        {book.volumeInfo.industryIdentifiers[0].type} {book.volumeInfo.industryIdentifiers[0].identifier}
+                        {book.industryIdentifiersType} {book.industryIdentifier}
                     </Segment>
                     <Segment>
                         <p>Purchase Link:</p> 
-                        <a href={book.saleInfo.buyLink}>{book.saleInfo.buyLink}</a>
+                        <a href={book.buyLink}>{book.buyLink}</a>
                     </Segment>
                     <Segment>
-                        {book.selfLink}
+                        {book.bookUrl}
                     </Segment>
                 </Segment.Group>
 
             </Card.Content>
-            <Button 
-                as={Link} 
-                to='/addBook' 
-                color='olive' 
-                floated='right'>
-                Add Book
+            <Button as={Link} to='/addBook' color='olive' floated='right'>
+                Add To Shelf
             </Button>
+            <Button color='grey' floated='right' onClick={handleCloseModal}>
+                Close
+            </Button>
+
         </Card>
     )
 }

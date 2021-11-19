@@ -2,34 +2,27 @@ import { useState } from 'react';
 import { Button, Container, Card, Image } from 'semantic-ui-react';
 import SearchDetails from './SearchDetails';
 import { useStore } from '../../stores/store';
-import { Redirect } from 'react-router-dom';
 
 function SearchResults() {
-  const [selectedBookFromSearch, setSelectedBookFromSearch] = useState(null);
+  const [showModal, setshowModal] = useState(false);
   const {bookStore} = useStore();
   const {searchedBooks} = bookStore;
-  const [redirect, setRedirect] = useState(null);
 
   const handleSeeBookDetails = (id: string) => {
     const book = searchedBooks.find(a => a.id === id);
-    // local to show detailed component:
-    setSelectedBookFromSearch(book);
-    // in store:
-    bookStore.setBookToAdd(book);
+    // Update locally to show detailed modal:
+    setshowModal(true);
+    // Update store:
+    bookStore.selectedBookToAdd = book;
   }
 
-  const handleAddBook = (bookId: string) => {
-    console.log("add bookID to database: " + bookId);
-    setSelectedBookFromSearch(null);
+  const handleCloseModal = () => {
+    setshowModal(false);
   }
 
-
-  if (redirect) {
-    return <Redirect to={redirect}/>
-  }
   return (
     <>
-      {selectedBookFromSearch !== null && <SearchDetails book={selectedBookFromSearch} handleAddBook={handleAddBook}/>}
+      {showModal && <SearchDetails handleCloseModal={handleCloseModal}/>}
 
       <Container style={{marginTop: '7em'}}>
           <h3>List of search results</h3>

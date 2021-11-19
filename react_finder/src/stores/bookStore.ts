@@ -112,26 +112,16 @@ export default class BookStore {
         }
     }
 
-    // here to add a new book!
+    // search with keyword:
     searchBooks = async (keyWord: string) => {
         var formattedbooks = [];
         this.loadingInitial = true;
         try {
             await axios.get<SearchedBook[]>("http://localhost:5000/api/search").then((res: any) => {
-            // customImageLink:
-            // books.forEach(book => {
-            //     let imageLink = '';
-            //     if (book.volumeInfo.hasOwnProperty('imageLinks')) {
-            //     if (book.volumeInfo.imageLinks.hasOwnProperty('thumbnail')) {
-            //         imageLink = book.volumeInfo.imageLinks.thumbnail;
-            //     }
-            //     }
-            //     book.customImageLink = imageLink;
-            // })
-            formattedbooks = this.formatSearchResults(res.data.items);
-            this.searchedBooks = formattedbooks;
-            this.setLoadingInitial(false);
-        });
+                formattedbooks = this.formatSearchResults(res.data.items);
+                this.searchedBooks = formattedbooks;
+                this.setLoadingInitial(false);
+            });
         } catch (error) {
             console.log(error); 
             this.setLoadingInitial(false);
@@ -139,44 +129,60 @@ export default class BookStore {
         return formattedbooks;
     }
 
+    // format response into SearchedBook[]:
     private formatSearchResults = (searchResult) => {
         var formattedBooks: SearchedBook[] = [];
         for (var bookInfo in searchResult) {
-            console.log(searchResult[bookInfo]);
-            var id: string = searchResult[bookInfo].id;
-            var title: string = searchResult[bookInfo].volumeInfo.title;
-            var subtitle: string = searchResult[bookInfo].volumeInfo.subtitle;
-            var author: string = searchResult[bookInfo].volumeInfo.authors[0];
-            var bookUrl: string = searchResult[bookInfo].selfLink;
+            var author: string = '';
+            if (searchResult[bookInfo].volumeInfo.hasOwnProperty('authors')) {
+                author = searchResult[bookInfo].volumeInfo.authors[0];
+            }
             var thumbnail: string = '';
             if (searchResult[bookInfo].volumeInfo.hasOwnProperty('imageLinks')) {
                 if (searchResult[bookInfo].volumeInfo.imageLinks.hasOwnProperty('thumbnail')) {
                     thumbnail = searchResult[bookInfo].volumeInfo.imageLinks.thumbnail;
                 }
             }
+            var identifierType: string = '';
+            var identifier: string = '';
+            if (searchResult[bookInfo].volumeInfo.hasOwnProperty('industryIdentifiers')) {
+                if (searchResult[bookInfo].volumeInfo.industryIdentifiers[0].hasOwnProperty('type')) {
+                    identifierType = searchResult[bookInfo].volumeInfo.industryIdentifiers[0].type;
+                }
+                if (searchResult[bookInfo].volumeInfo.industryIdentifiers[0].hasOwnProperty('identifier')) {
+                    identifier = searchResult[bookInfo].volumeInfo.industryIdentifiers[0].identifier;
+                }
+            }
+            var category: string = '';
+            if (searchResult[bookInfo].volumeInfo.hasOwnProperty('categories')) {
+                category = searchResult[bookInfo].volumeInfo.categories[0];
+            }
+            var buyLink: string = '';
+            if (searchResult[bookInfo].hasOwnProperty('saleInfo')) {
+                if (searchResult[bookInfo].saleInfo.hasOwnProperty('buyLink')) {
+                    buyLink = searchResult[bookInfo].saleInfo.buyLink;
+                }
+            }
             var book: SearchedBook = {
-                id: id,
-                title: title,
-                subtitle: subtitle,
+                id: searchResult[bookInfo].id,
+                title: searchResult[bookInfo].volumeInfo.title,
+                subtitle: searchResult[bookInfo].volumeInfo.subtitle,
                 author: author,
                 thumbnail: thumbnail,
-                bookUrl: bookUrl,
-
-                publishedDate: '',
-                publisher: '',
-                category: '', 
-                description: '',
-                averageRating: '',
-                ratingsCount: '',
-                pageCount: '',
-                industryIdentifiersType: '',
-                industryIdentifiersIdentifier: '',
-                buyLink: ''
+                bookUrl: searchResult[bookInfo].selfLink,
+                publishedDate: searchResult[bookInfo].volumeInfo.publishedDate,
+                publisher: searchResult[bookInfo].volumeInfo.publisher,
+                category: category, 
+                description: searchResult[bookInfo].volumeInfo.description,
+                averageRating: searchResult[bookInfo].volumeInfo.averageRating,
+                ratingsCount: searchResult[bookInfo].volumeInfo.ratingsCount,
+                pageCount: searchResult[bookInfo].volumeInfo.pageCount,
+                industryIdentifiersType: identifierType,
+                industryIdentifier: identifier,
+                buyLink: buyLink
             }
             formattedBooks.push(book);
         }
-        console.log("formattedBooks:");
-        console.log(formattedBooks);
         return formattedBooks;
     }
 
