@@ -25,7 +25,7 @@ function App() {
               <Route path='/books/:id' component={ShelfBookDetails} />
               <Route exact path='/search' component={SearchEngine} />
               <Route path='/search/:keyWord' component={SearchResults} />
-              <Route key={location.key} path={['/addBook', '/manage/:id']} component={EditBookForm} />
+              <Route key={location.key} path={['/addBook/:id', '/manage/:id']} component={EditBookForm} />
             </Container>
           </>
         )}/>

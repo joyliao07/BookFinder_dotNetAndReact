@@ -21,8 +21,8 @@ const SearchDetails = (props :Props) => {
                     src={book.thumbnail}
                     size='tiny'
                     floated='left'/>
-                <Card.Header>{book.title}</Card.Header>
-                <Card.Meta>{book.subtitle}</Card.Meta>
+                <Card.Header>{book.bookTitle}</Card.Header>
+                <Card.Meta>{book.bookSubtitle}</Card.Meta>
                 <p>By {book.author}</p>
                 <p>Published {book.publishedDate}</p>
                 <p>{book.publisher}</p>
@@ -30,6 +30,7 @@ const SearchDetails = (props :Props) => {
                 <Segment.Group>
                     <Segment>Category: {book.category}</Segment>
                     <Segment.Group>
+                        <p>Description:</p>
                         <Segment>{book.description}</Segment>
                     </Segment.Group>
                 </Segment.Group>
@@ -58,7 +59,7 @@ const SearchDetails = (props :Props) => {
                 </Segment.Group>
 
             </Card.Content>
-            <Button as={Link} to='/addBook' color='olive' floated='right'>
+            <Button as={Link} to={`/addBook/${book.id}`} color='olive' floated='right'>
                 Add To Shelf
             </Button>
             <Button color='grey' floated='right' onClick={handleCloseModal}>

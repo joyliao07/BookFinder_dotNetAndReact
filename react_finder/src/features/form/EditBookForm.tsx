@@ -16,7 +16,7 @@ const EditBookForm = () => {
     const history = useHistory();
     const {bookStore} = useStore();
     const {addBookToShelf, updateBookFromShelf, 
-            loading, loadBookFromShelf, loadingInitial} = bookStore;
+            loading, loadBookFromShelf, selectedBookToAdd, loadingInitial} = bookStore;
     const {id} = useParams<{id: string}>();
 
     const [book, setBook] = useState<ShelvedBook>({
@@ -39,8 +39,15 @@ const EditBookForm = () => {
     })
 
     useEffect(() => {
-        if (id) loadBookFromShelf(id).then(book => setBook(book!))
-    }, [id, loadBookFromShelf]);
+        console.log("page id: " + id);
+        // console.log(typeof selectedBookToAdd);
+        if (selectedBookToAdd == undefined) {
+            console.log("load book from shelf");
+            loadBookFromShelf(id).then(book => setBook(book!))
+        } else {
+            console.log("load book from search");
+        }
+    }, [id, loadBookFromShelf, selectedBookToAdd]);
 
     function handleFormSubmit(book: ShelvedBook) {
         if (book.id.length === 0) {

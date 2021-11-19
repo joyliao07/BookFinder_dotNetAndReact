@@ -1,7 +1,7 @@
 interface SearchedBook {
     id: string,
-    title: string,
-    subtitle: string,
+    bookTitle: string,
+    bookSubtitle: string,
     author: string,
     thumbnail: string,
     bookUrl: string,

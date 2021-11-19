@@ -57,6 +57,7 @@ export default class BookStore {
     }
 
     loadBookFromShelf = async (id: string) => {
+        this.selectedBookToAdd = undefined;
         let book = this.bookRegistry.get(id);
         if (book) {
             this.selectedBookFromShelf = book;
@@ -165,8 +166,8 @@ export default class BookStore {
             }
             var book: SearchedBook = {
                 id: searchResult[bookInfo].id,
-                title: searchResult[bookInfo].volumeInfo.title,
-                subtitle: searchResult[bookInfo].volumeInfo.subtitle,
+                bookTitle: searchResult[bookInfo].volumeInfo.title,
+                bookSubtitle: searchResult[bookInfo].volumeInfo.subtitle,
                 author: author,
                 thumbnail: thumbnail,
                 bookUrl: searchResult[bookInfo].selfLink,

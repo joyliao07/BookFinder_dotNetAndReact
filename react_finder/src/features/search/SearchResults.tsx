@@ -31,8 +31,8 @@ function SearchResults() {
                   <Card fluid key={book.id}>
                     <Card.Content>
                       <Image src={book.thumbnail} size='tiny' floated='left'/>
-                      <h3>{book.title}</h3>
-                      <Card.Meta>{book.subtitle}</Card.Meta>
+                      <h3>{book.bookTitle}</h3>
+                      <Card.Meta>{book.bookSubtitle}</Card.Meta>
                     </Card.Content>
                     <Card.Content>
                       <p>Written by {book.author}</p>
