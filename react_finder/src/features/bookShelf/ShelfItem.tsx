@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
-import Book from '../../models/book';
+import ShelvedBook from '../../models/shelvedBook';
 
 interface Props {
-    book: Book
+    book: ShelvedBook
 }
 
 const ShelfItem = ({ book }: Props) => {

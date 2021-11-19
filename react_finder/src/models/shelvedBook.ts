@@ -1,4 +1,4 @@
-interface Book {
+interface ShelvedBook {
     id: string,
     bookTitle: string,
     bookSubtitle: string,
@@ -11,5 +11,5 @@ interface Book {
     status: string,
     favorite: boolean
 }
-// to add subtitle, author, thumbnail, and myNotes
-export default Book;
+
+export default ShelvedBook;

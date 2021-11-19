@@ -4,7 +4,7 @@ import { Link, useParams, useHistory } from 'react-router-dom';
 import { Button, Card, Header, Segment } from 'semantic-ui-react';
 import { v4 as uuid } from 'uuid';
 import LoadingComponent from '../../layout/LoadingComponent';
-import Book from '../../models/book';
+import ShelvedBook from '../../models/shelvedBook';
 import { useStore } from '../../stores/store';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
@@ -19,7 +19,7 @@ const EditBookForm = () => {
             loading, loadBookFromShelf, loadingInitial} = bookStore;
     const {id} = useParams<{id: string}>();
 
-    const [book, setBook] = useState<Book>({
+    const [book, setBook] = useState<ShelvedBook>({
         id: '',
         bookTitle: '',
         bookSubtitle: '',
@@ -42,7 +42,7 @@ const EditBookForm = () => {
         if (id) loadBookFromShelf(id).then(book => setBook(book!))
     }, [id, loadBookFromShelf]);
 
-    function handleFormSubmit(book: Book) {
+    function handleFormSubmit(book: ShelvedBook) {
         if (book.id.length === 0) {
             let newBook = {
                 ...book,

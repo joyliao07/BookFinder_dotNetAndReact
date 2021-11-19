@@ -23,7 +23,7 @@ function SearchEngine() {
 
   const handleSearch = async (searchWord) => {
     var books = await bookStore.searchBooks(searchWord.keyWord);
-    console.log(books);
+    // console.log(books);
     setSearchedBooks(books);
     setKeyWord(searchWord.keyWord);
     setRedirect(searchWord.keyWord);
@@ -44,7 +44,6 @@ function SearchEngine() {
 
 
   if (redirect) {
-    console.log(redirect);
     return <Redirect to={`/search/${redirect}`}/>
   }
 

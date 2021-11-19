@@ -5,9 +5,9 @@ import { useStore } from '../../stores/store';
 import { Redirect } from 'react-router-dom';
 
 function SearchResults() {
-  const [searchedBooks, setSearchedBooks] = useState([]);
   const [selectedBookFromSearch, setSelectedBookFromSearch] = useState(null);
   const {bookStore} = useStore();
+  const {searchedBooks} = bookStore;
   const [redirect, setRedirect] = useState(null);
 
   const handleSeeBookDetails = (id: string) => {
@@ -37,13 +37,13 @@ function SearchResults() {
               return(
                   <Card fluid key={book.id}>
                     <Card.Content>
-                      <Image src={book.customImageLink} size='tiny' floated='left'/>
-                      <h3>{book.volumeInfo.title}</h3>
-                      <Card.Meta>{book.volumeInfo.subtitle}</Card.Meta>
+                      <Image src={book.thumbnail} size='tiny' floated='left'/>
+                      <h3>{book.title}</h3>
+                      <Card.Meta>{book.subtitle}</Card.Meta>
                     </Card.Content>
                     <Card.Content>
-                      <p>Written by {book.volumeInfo.authors[0]}</p>
-                      <p>Published on {book.volumeInfo.publishedDate}</p>
+                      <p>Written by {book.author}</p>
+                      <p>Published on ...</p>
                       <Button color='blue' 
                               floated='right'
                               onClick={() => handleSeeBookDetails(book.id)}>More Details</Button>

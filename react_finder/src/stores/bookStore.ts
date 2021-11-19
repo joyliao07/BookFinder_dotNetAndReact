@@ -1,12 +1,14 @@
 import axios from "axios";
 import { makeAutoObservable, runInAction } from "mobx";
 import shelfAgent from "../api/shelfAgent";
-import Book from "../models/book";
+import ShelvedBook from "../models/shelvedBook";
+import SearchedBook from "../models/searchedBook";
 
 export default class BookStore {
-    bookRegistry = new Map<string, Book>();
-    selectedBookFromShelf: Book | undefined = undefined;
-    selectedBookToAdd: Book | undefined = undefined;
+    bookRegistry = new Map<string, ShelvedBook>();
+    selectedBookFromShelf: ShelvedBook | undefined = undefined;
+    selectedBookToAdd: SearchedBook | undefined = undefined;
+    searchedBooks: SearchedBook[] | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = true;
@@ -27,11 +29,11 @@ export default class BookStore {
                 const status = book.status;
                 books[status] = books[status] ? [...books[status], book] : [book];
                 return books;
-            }, {} as {[key: string]: Book[]})
+            }, {} as {[key: string]: ShelvedBook[]})
         )
     }
 
-    private setBookToRegistry = (book: Book) => {
+    private setBookToRegistry = (book: ShelvedBook) => {
         book.date = new Date(book.date);
         this.bookRegistry.set(book.id, book);
     }
@@ -76,7 +78,7 @@ export default class BookStore {
         }
     }
 
-    updateBookFromShelf = async (book: Book) => {
+    updateBookFromShelf = async (book: ShelvedBook) => {
         this.loading = true;
         try {
             await shelfAgent.Books.update(book);
@@ -112,60 +114,79 @@ export default class BookStore {
 
     // here to add a new book!
     searchBooks = async (keyWord: string) => {
-        var books;      
+        var formattedbooks = [];
         this.loadingInitial = true;
         try {
-            await axios.get<Book[]>("http://localhost:5000/api/search").then((res: any) => {
-             books = res.data.items;  
-            // set into "book" format:
-
+            await axios.get<SearchedBook[]>("http://localhost:5000/api/search").then((res: any) => {
             // customImageLink:
-            books.forEach(book => {
-                let imageLink = '';
-                if (book.volumeInfo.hasOwnProperty('imageLinks')) {
-                if (book.volumeInfo.imageLinks.hasOwnProperty('thumbnail')) {
-                    imageLink = book.volumeInfo.imageLinks.thumbnail;
-                }
-                }
-                book.customImageLink = imageLink;
-            })
+            // books.forEach(book => {
+            //     let imageLink = '';
+            //     if (book.volumeInfo.hasOwnProperty('imageLinks')) {
+            //     if (book.volumeInfo.imageLinks.hasOwnProperty('thumbnail')) {
+            //         imageLink = book.volumeInfo.imageLinks.thumbnail;
+            //     }
+            //     }
+            //     book.customImageLink = imageLink;
+            // })
+            formattedbooks = this.formatSearchResults(res.data.items);
+            this.searchedBooks = formattedbooks;
             this.setLoadingInitial(false);
         });
         } catch (error) {
             console.log(error); 
             this.setLoadingInitial(false);
         }
-        return books;
-    } 
+        return formattedbooks;
+    }
+
+    private formatSearchResults = (searchResult) => {
+        var formattedBooks: SearchedBook[] = [];
+        for (var bookInfo in searchResult) {
+            console.log(searchResult[bookInfo]);
+            var id: string = searchResult[bookInfo].id;
+            var title: string = searchResult[bookInfo].volumeInfo.title;
+            var subtitle: string = searchResult[bookInfo].volumeInfo.subtitle;
+            var author: string = searchResult[bookInfo].volumeInfo.authors[0];
+            var bookUrl: string = searchResult[bookInfo].selfLink;
+            var thumbnail: string = '';
+            if (searchResult[bookInfo].volumeInfo.hasOwnProperty('imageLinks')) {
+                if (searchResult[bookInfo].volumeInfo.imageLinks.hasOwnProperty('thumbnail')) {
+                    thumbnail = searchResult[bookInfo].volumeInfo.imageLinks.thumbnail;
+                }
+            }
+            var book: SearchedBook = {
+                id: id,
+                title: title,
+                subtitle: subtitle,
+                author: author,
+                thumbnail: thumbnail,
+                bookUrl: bookUrl,
+
+                publishedDate: '',
+                publisher: '',
+                category: '', 
+                description: '',
+                averageRating: '',
+                ratingsCount: '',
+                pageCount: '',
+                industryIdentifiersType: '',
+                industryIdentifiersIdentifier: '',
+                buyLink: ''
+            }
+            formattedBooks.push(book);
+        }
+        console.log("formattedBooks:");
+        console.log(formattedBooks);
+        return formattedBooks;
+    }
 
     setBookToAdd = (info: any) => {
         console.log("bookStore: setBookToAdd");
-        console.log(info);
-        console.log("id " + info.id);
-        console.log("bookTitle " + info.volumeInfo.title);
-        console.log("bookSubtitle " + info.volumeInfo.subtitle);
-        console.log("author " + info.volumeInfo.authors[0]);
-        // console.log("thumbnail " + );
-        // console.log("bookUrl " + );
-        // console.log("userName " + );
-        // console.log(" " + );
+        
 
-        var book: Book = {
-            id: info.id,
-            bookTitle: '',
-            bookSubtitle: '',
-            author: '',
-            thumbnail: '',
-            notes: '',
-            bookUrl: '',
-            date: null,
-            userName: '',
-            status: '',
-            favorite: false
-        }
     }
 
-    addBookToShelf = async (book: Book) => {
+    addBookToShelf = async (book: ShelvedBook) => {
         this.loading = true;
         try {
             await shelfAgent.Books.create(book);

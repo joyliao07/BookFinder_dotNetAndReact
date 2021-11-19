@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import Book from '../models/book';
+import ShelvedBook from '../models/shelvedBook';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -29,10 +29,10 @@ const requests = {
 }
 
 const Books = {
-    list: () => requests.get<Book[]>('/books'),
-    details: (id: string) => requests.get<Book>(`/books/${id}`),
-    create: (book: Book) => axios.post<void>('/books', book),
-    update: (book: Book) => axios.put<void>(`/books/${book.id}`, book),
+    list: () => requests.get<ShelvedBook[]>('/books'),
+    details: (id: string) => requests.get<ShelvedBook>(`/books/${id}`),
+    create: (book: ShelvedBook) => axios.post<void>('/books', book),
+    update: (book: ShelvedBook) => axios.put<void>(`/books/${book.id}`, book),
     delete: (id: string) => axios.delete<void>(`/books/${id}`)
 }
 
