@@ -9,12 +9,12 @@ import { format } from 'date-fns';
 
 const ShelfBookDetails = () => {
     const {bookStore} = useStore();
-    const {selectedBook: book, loadBook, loadingInitial} = bookStore;
+    const {selectedBookFromShelf: book, loadBookFromShelf, loadingInitial} = bookStore;
     const {id} = useParams<{id: string}>();
 
     useEffect(() => {
-        if (id) loadBook(id);
-    }, [id, loadBook]);
+        if (id) loadBookFromShelf(id);
+    }, [id, loadBookFromShelf]);
 
     if (loadingInitial || !book) return <LoadingComponent />;
 

@@ -15,8 +15,8 @@ import NoteInput from './common/NoteInput';
 const EditBookForm = () => {
     const history = useHistory();
     const {bookStore} = useStore();
-    const {createBook, updateBook, 
-            loading, loadBook, loadingInitial} = bookStore;
+    const {addBookToShelf, updateBookFromShelf, 
+            loading, loadBookFromShelf, loadingInitial} = bookStore;
     const {id} = useParams<{id: string}>();
 
     const [book, setBook] = useState<Book>({
@@ -39,8 +39,8 @@ const EditBookForm = () => {
     })
 
     useEffect(() => {
-        if (id) loadBook(id).then(book => setBook(book!))
-    }, [id, loadBook]);
+        if (id) loadBookFromShelf(id).then(book => setBook(book!))
+    }, [id, loadBookFromShelf]);
 
     function handleFormSubmit(book: Book) {
         if (book.id.length === 0) {
@@ -48,9 +48,9 @@ const EditBookForm = () => {
                 ...book,
                 id: uuid()
             };
-            createBook(newBook).then(() => history.push(`/books/${newBook.id}`))
+            addBookToShelf(newBook).then(() => history.push(`/books/${newBook.id}`))
         } else {
-            updateBook(book).then(() => history.push(`/books/${book.id}`))
+            updateBookFromShelf(book).then(() => history.push(`/books/${book.id}`))
         }
     }
 

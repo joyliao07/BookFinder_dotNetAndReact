@@ -8,11 +8,11 @@ import ShelfList from "./ShelfList";
 
 var ShelfDashboard = () => {
     const {bookStore} = useStore();
-    const {loadBooks, bookRegistry} = bookStore;
+    const {loadBooksFromShelf, bookRegistry} = bookStore;
 
     useEffect(() => {
-      if (bookRegistry.size <= 1) loadBooks();
-    }, [bookRegistry.size, loadBooks])
+      if (bookRegistry.size <= 1) loadBooksFromShelf();
+    }, [bookRegistry.size, loadBooksFromShelf])
   
     if (bookStore.loadingInitial) return <LoadingComponent content='Loading app' />
 

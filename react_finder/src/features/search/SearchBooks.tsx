@@ -1,56 +1,57 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { Button, Container, Card, Image } from 'semantic-ui-react';
-import Book from '../../models/book';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import SearchTextInput from './SearchTextInput';
 import SearchDetails from './SearchDetails';
+import { useStore } from '../../stores/store';
+import { Redirect } from 'react-router-dom';
 
 function SearchBooks() {
-  const [books, setBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [searchedBooks, setSearchedBooks] = useState([]);
+  const [selectedBookFromSearch, setSelectedBookFromSearch] = useState(null);
+  const {bookStore} = useStore();
+  const [redirect, setRedirect] = useState(null);
 
   const validationSchema = Yup.object({
-    keyWord: Yup.string().required('A search keyword is required').nullable(),
+    keyWord: Yup.string().required('Please enter a keyword to search.').nullable(),
   })
 
   const [keyWord, setKeyWord] = useState({
     keyWord: '',
   });
 
-  const handleSearch = (keyWord) => {
-    // use keyWord in API call...
-    axios.get<Book[]>("http://localhost:5000/api/search").then((res: any) => {
-      var books = res.data.items;  
-      // create imageLink:
-      books.forEach(book => {
-        let imageLink = '';
-        if (book.volumeInfo.hasOwnProperty('imageLinks')) {
-          if (book.volumeInfo.imageLinks.hasOwnProperty('thumbnail')) {
-            imageLink = book.volumeInfo.imageLinks.thumbnail;
-          }
-        }
-        book.customImageLink = imageLink;
-      })
-      setBooks(books);
-    });
-    setKeyWord(keyWord);
+  const handleSearch = async (searchWord) => {
+    console.log(searchWord);
+    var books = await bookStore.searchBooks(searchWord);
+    console.log(books);
+    setSearchedBooks(books);
+    setKeyWord(searchWord);
+    setRedirect(searchWord);
+    // route the page?
+    return <Redirect to='/'/>
   }
 
-  const handleSeeBookDetails = (id) => {
-    const book = books.find(a => a.id === id);
-    setSelectedBook(book);
+  const handleSeeBookDetails = (id: string) => {
+    const book = searchedBooks.find(a => a.id === id);
+    // local to show detailed component:
+    setSelectedBookFromSearch(book);
+    // in store:
+    bookStore.setBookToAdd(book);
   }
 
-  const handleAddBook = (bookId) => {
+  const handleAddBook = (bookId: string) => {
     console.log("add bookID to database: " + bookId);
-    setSelectedBook(null);
+    setSelectedBookFromSearch(null);
   }
 
+
+  if (redirect) {
+    return <Redirect to={redirect}/>
+  }
   return (
     <>
-      {selectedBook !== null && <SearchDetails book={selectedBook} handleAddBook={handleAddBook}/>}
+      {selectedBookFromSearch !== null && <SearchDetails book={selectedBookFromSearch} handleAddBook={handleAddBook}/>}
       <Container style={{marginTop: '7em'}}>
         <h3>Keyword Search</h3>
         <Formik 
@@ -71,7 +72,7 @@ function SearchBooks() {
       </Container>
 
       <Container style={{marginTop: '7em'}}>
-          {books.map( book => {
+          {searchedBooks.map( book => {
               return(
                   <Card fluid key={book.id}>
                     <Card.Content>
@@ -82,7 +83,9 @@ function SearchBooks() {
                     <Card.Content>
                       <p>Written by {book.volumeInfo.authors[0]}</p>
                       <p>Published on {book.volumeInfo.publishedDate}</p>
-                      <Button color='blue' floated='right' onClick={() => handleSeeBookDetails(book.id)}>More Details</Button>
+                      <Button color='blue' 
+                              floated='right'
+                              onClick={() => handleSeeBookDetails(book.id)}>More Details</Button>
                     </Card.Content>
                   </Card>
               )

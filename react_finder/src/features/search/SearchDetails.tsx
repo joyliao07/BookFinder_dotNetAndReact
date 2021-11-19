@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button, Card, Image, Segment } from "semantic-ui-react";
 
 interface Props {
@@ -6,9 +7,17 @@ interface Props {
 }
 
 const SearchDetails = ({book, handleAddBook}: Props) => {
+
     const handleAddBookClick = (bookId: string) => {
-        handleAddBook(bookId);
+        console.log("handleAddBookClick called");
+        // handleAddBook(bookId);
     }
+
+    // <Button color='orange' 
+    //         floated='right' 
+    //         onClick={() => handleAddBookClick(book.id)}>
+    //     Add Book
+    // </Button>
 
     return(
         <Card fluid>
@@ -54,7 +63,11 @@ const SearchDetails = ({book, handleAddBook}: Props) => {
                 </Segment.Group>
 
             </Card.Content>
-            <Button color='orange' floated='right' onClick={() => handleAddBookClick(book.id)}>
+            <Button 
+                as={Link} 
+                to='/addBook' 
+                color='olive' 
+                floated='right'>
                 Add Book
             </Button>
         </Card>

@@ -24,7 +24,8 @@ function App() {
               <Route exact path='/books' component={ShelfDashboard} />
               <Route path='/books/:id' component={ShelfBookDetails} />
               <Route path='/search' component={SearchBooks} />
-              <Route key={location.key} path='/manage/:id' component={EditBookForm} />
+              <Route path='/search/:keyWord' component={HomePage} />
+              <Route key={location.key} path={['/addBook', '/manage/:id']} component={EditBookForm} />
             </Container>
           </>
         )}/>
