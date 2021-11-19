@@ -17,14 +17,13 @@ namespace API.Controllers
         }
 
         // http://localhost:5000/api/search/"{keyWord}"
-        [HttpGet]
-        public async Task<ActionResult> SearchBooks()
+        [HttpGet("{keyWord}")]
+        public async Task<ActionResult> SearchBooks(string keyWord)
         {
-            System.Console.WriteLine("How do I get the key word ::::::::::::::::::::::::::::::::::");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept
             .Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var results = await client.GetStringAsync("https://www.googleapis.com/books/v1/volumes?q=constellation&key=" + _config["BookApi"]);
+            var results = await client.GetStringAsync("https://www.googleapis.com/books/v1/volumes?q=" + keyWord + "&key=" + _config["BookApi"]);
             return Ok(results);
         }
 

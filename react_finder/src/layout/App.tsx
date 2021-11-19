@@ -23,7 +23,7 @@ function App() {
             <Container style={{ marginTop: '7em' }}>
               <Route exact path='/books' component={ShelfDashboard} />
               <Route path='/books/:id' component={ShelfBookDetails} />
-              <Route path='/search' component={SearchEngine} />
+              <Route exact path='/search' component={SearchEngine} />
               <Route path='/search/:keyWord' component={SearchResults} />
               <Route key={location.key} path={['/addBook', '/manage/:id']} component={EditBookForm} />
             </Container>

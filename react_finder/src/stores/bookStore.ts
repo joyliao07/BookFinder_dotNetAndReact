@@ -112,12 +112,12 @@ export default class BookStore {
         }
     }
 
-    // search with keyword:
+    // Search with keyword:
     searchBooks = async (keyWord: string) => {
         var formattedbooks = [];
         this.loadingInitial = true;
         try {
-            await axios.get<SearchedBook[]>("http://localhost:5000/api/search").then((res: any) => {
+            await axios.get<SearchedBook[]>(`http://localhost:5000/api/search/${keyWord}`).then((res: any) => {
                 formattedbooks = this.formatSearchResults(res.data.items);
                 this.searchedBooks = formattedbooks;
                 this.setLoadingInitial(false);
@@ -129,7 +129,7 @@ export default class BookStore {
         return formattedbooks;
     }
 
-    // format response into SearchedBook[]:
+    // Format response into SearchedBook[]:
     private formatSearchResults = (searchResult) => {
         var formattedBooks: SearchedBook[] = [];
         for (var bookInfo in searchResult) {
