@@ -4,20 +4,20 @@ import SearchDetails from './SearchDetails';
 import { useStore } from '../../stores/store';
 
 function SearchResults() {
-  const [showModal, setshowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const {bookStore} = useStore();
   const {searchedBooks} = bookStore;
 
   const handleSeeBookDetails = (id: string) => {
     const book = searchedBooks.find(a => a.id === id);
     // Update locally to show detailed modal:
-    setshowModal(true);
+    setShowModal(true);
     // Update store:
     bookStore.selectedBookToAdd = book;
   }
 
   const handleCloseModal = () => {
-    setshowModal(false);
+    setShowModal(false);
   }
 
   return (
@@ -32,11 +32,11 @@ function SearchResults() {
                     <Card.Content>
                       <Image src={book.thumbnail} size='tiny' floated='left'/>
                       <h3>{book.bookTitle}</h3>
-                      <Card.Meta>{book.bookSubtitle}</Card.Meta>
+                      <h5>{book.bookSubtitle}</h5>
                     </Card.Content>
                     <Card.Content>
-                      <p>Written by {book.author}</p>
-                      <p>Published on ...</p>
+                      {(book.author !== '') && <p>By {book.author}</p>}
+                      {(book.publishedDate !== '') && <p>Publish date: {book.publishedDate}</p>}
                       <Button color='blue' 
                               floated='right'
                               onClick={() => handleSeeBookDetails(book.id)}>More Details</Button>

@@ -130,6 +130,23 @@ export default class BookStore {
         return formattedbooks;
     }
 
+    loadSearchedBookToForm = () => {
+        var book: ShelvedBook = {
+            id: '',
+            bookTitle: this.selectedBookToAdd.bookTitle,
+            bookSubtitle: this.selectedBookToAdd.bookSubtitle,
+            author: this.selectedBookToAdd.author,
+            thumbnail: this.selectedBookToAdd.thumbnail,
+            notes: '',
+            bookUrl: this.selectedBookToAdd.bookUrl,
+            date: new Date(),
+            userName: 'joyce',
+            status: 'To Read',
+            favorite: false
+        };
+        return book;
+    }
+
     // Format response into SearchedBook[]:
     private formatSearchResults = (searchResult) => {
         var formattedBooks: SearchedBook[] = [];

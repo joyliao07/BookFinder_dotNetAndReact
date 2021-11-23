@@ -18,7 +18,8 @@ const ShelfItem = ({ book }: Props) => {
                             <Item.Header as={Link} to={`/books/${book.id}`}>
                                 {book.bookTitle}
                             </Item.Header>
-                            <Item.Description>By {book.author}</Item.Description>
+                            {(book.author !== "") &&
+                            <Item.Description>By {book.author}</Item.Description>}
                         </Item.Content>
                     </Item>
                 </Item.Group>

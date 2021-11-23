@@ -12,11 +12,11 @@ import SelectInput from './common/SelectInput';
 import DateInput from './common/DateInput';
 import NoteInput from './common/NoteInput';
 
-const EditBookForm = () => {
+const BookForm = () => {
     const history = useHistory();
     const {bookStore} = useStore();
     const {addBookToShelf, updateBookFromShelf, 
-            loading, loadBookFromShelf, selectedBookToAdd, loadingInitial} = bookStore;
+            loading, loadBookFromShelf, selectedBookToAdd, loadSearchedBookToForm, loadingInitial} = bookStore;
     const {id} = useParams<{id: string}>();
 
     const [book, setBook] = useState<ShelvedBook>({
@@ -39,15 +39,14 @@ const EditBookForm = () => {
     })
 
     useEffect(() => {
-        console.log("page id: " + id);
         // console.log(typeof selectedBookToAdd);
-        if (selectedBookToAdd == undefined) {
-            console.log("load book from shelf");
-            loadBookFromShelf(id).then(book => setBook(book!))
+        if (selectedBookToAdd === undefined) {
+            loadBookFromShelf(id).then(book => setBook(book!));
         } else {
-            console.log("load book from search");
+            const book = loadSearchedBookToForm();
+            setBook(book);
         }
-    }, [id, loadBookFromShelf, selectedBookToAdd]);
+    }, [id, loadBookFromShelf, selectedBookToAdd, loadSearchedBookToForm]);
 
     function handleFormSubmit(book: ShelvedBook) {
         if (book.id.length === 0) {
@@ -80,6 +79,7 @@ const EditBookForm = () => {
             <Card fluid>
                 <Card.Content>
                     <Card.Header>{book.bookTitle}</Card.Header>
+                    <p>{book.bookSubtitle}</p>
                     <Card.Description>
                         By {book.author}
                     </Card.Description>
@@ -126,4 +126,4 @@ const EditBookForm = () => {
     )
 }
 
-export default observer(EditBookForm);
+export default observer(BookForm);

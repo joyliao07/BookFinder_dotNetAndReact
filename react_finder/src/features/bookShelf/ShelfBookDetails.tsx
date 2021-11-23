@@ -26,7 +26,7 @@ const ShelfBookDetails = () => {
                     size='small' floated='left'/>
                 <Card.Header>{book.bookTitle}</Card.Header>
                 <Card.Meta>{book.bookSubtitle}</Card.Meta>
-                <p>By {book.author}</p>
+                {(book.author !== '') && <p>By {book.author}</p>}
             </Card.Content>
             <Card.Content>
                 <Card.Description>
@@ -40,9 +40,6 @@ const ShelfBookDetails = () => {
                     <h4>Notes:</h4>
                     <p>{book.notes}</p>
                 </Segment>
-                <Card.Description>
-                    {book.bookUrl}
-                </Card.Description>
                 
                 <Button as={Link} to={`/manage/${book.id}`} color='olive' floated='right'>
                     Edit Book Status

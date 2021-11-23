@@ -17,45 +17,53 @@ const SearchDetails = (props :Props) => {
     return(
         <Card fluid>
             <Card.Content>
-                <Image
-                    src={book.thumbnail}
-                    size='tiny'
-                    floated='left'/>
-                <Card.Header>{book.bookTitle}</Card.Header>
-                <Card.Meta>{book.bookSubtitle}</Card.Meta>
-                <p>By {book.author}</p>
-                <p>Published {book.publishedDate}</p>
-                <p>{book.publisher}</p>
+                <div style={{'height': '140px'}}>
+                    <Image
+                        src={book.thumbnail}
+                        size='tiny'
+                        floated='left'/>
+                    <h3>{book.bookTitle}</h3>
+                    <Card.Meta>{book.bookSubtitle}</Card.Meta>
+                    {(book.author !== '') && <p>By {book.author}</p>}
+                    {(book.publisher !== '') && <p>Publisher: {book.publisher}</p>}
+                    {(book.publishedDate !== '') && <p>Publish date: {book.publishedDate}</p>}
+                </div>
 
-                <Segment.Group>
-                    <Segment>Category: {book.category}</Segment>
+                
+                {(book.category !== '') && 
                     <Segment.Group>
-                        <p>Description:</p>
-                        <Segment>{book.description}</Segment>
-                    </Segment.Group>
-                </Segment.Group>
+                        <Segment>Category: {book.category}</Segment>
+                    </Segment.Group>}
+
+                {(book.description !== undefined) &&
+                    <Segment.Group>
+                            <Segment>Description:</Segment>
+                            <Segment>{book.description}</Segment>
+                    </Segment.Group>}
+                
+                {(book.averageRating !== undefined) &&
+                    <Segment.Group>
+                        <Segment>
+                            <p>Rating: {book.averageRating} out of 5 stars</p>
+                            {(book.ratingsCount !== undefined) && <p>Number of votes: {book.ratingsCount}</p>}
+                        </Segment>
+                    </Segment.Group>}
 
                 <Segment.Group>
-                    <Segment>
-                        <p>Average Rating: {book.averageRating} </p>
-                        <p>By {book.ratingsCount} votes</p>
-                    </Segment>
-                </Segment.Group>
-
-                <Segment.Group>
-                    <Segment>
-                        Page Count: {book.pageCount}
-                    </Segment>
-                    <Segment>
-                        {book.industryIdentifiersType} {book.industryIdentifier}
-                    </Segment>
-                    <Segment>
-                        <p>Purchase Link:</p> 
-                        <a href={book.buyLink}>{book.buyLink}</a>
-                    </Segment>
-                    <Segment>
-                        {book.bookUrl}
-                    </Segment>
+                    {(book.pageCount !== undefined) &&
+                        <Segment>
+                            Page Count: {book.pageCount}
+                        </Segment>}
+                    {(book.industryIdentifiersType !== undefined) &&
+                        <Segment>
+                            <p>Industry Identifier:</p>
+                            {book.industryIdentifiersType}. {book.industryIdentifier}
+                        </Segment>}
+                    {(book.buyLink !== '') &&
+                        <Segment>
+                            <h5>Purchase Link:</h5> 
+                            <a href={book.buyLink}>{book.buyLink}</a>
+                        </Segment>}
                 </Segment.Group>
 
             </Card.Content>
