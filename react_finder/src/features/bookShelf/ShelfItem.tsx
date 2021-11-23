@@ -2,12 +2,16 @@ import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import ShelvedBook from '../../models/shelvedBook';
+import { useStore } from '../../stores/store';
 
 interface Props {
     book: ShelvedBook
 }
 
 const ShelfItem = ({ book }: Props) => {
+    const {bookStore} = useStore();
+    const {deleteBook} = bookStore;
+
     return (
         <Segment.Group>
             <Segment>
@@ -34,10 +38,14 @@ const ShelfItem = ({ book }: Props) => {
                 <Button 
                     as={Link}
                     to={`/books/${book.id}`}
-                    color='teal'
+                    color='blue'
                     floated='right'
-                    content='View'
-                />
+                    content='View'/>
+                <Button 
+                    color='red'
+                    floated='right'
+                    content='Delete'
+                    onClick={() => deleteBook(book.id)}/>
             </Segment>
         </Segment.Group>
     )

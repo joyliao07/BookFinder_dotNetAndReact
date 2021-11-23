@@ -44,6 +44,9 @@ const ShelfBookDetails = () => {
                 <Button as={Link} to={`/manage/${book.id}`} color='olive' floated='right'>
                     Edit Book Status
                 </Button>
+                <Button as={Link} to={`/books`} color='grey' floated='right'>
+                    Cancel
+                </Button>
             </Card.Content>
         </Card>
     )
