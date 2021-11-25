@@ -1,11 +1,13 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace API.Controllers
 {
+    [AllowAnonymous]
     public class SearchController : BaseApiController
     {
         private static readonly HttpClient client = new HttpClient();

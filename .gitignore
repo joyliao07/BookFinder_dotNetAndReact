@@ -44,6 +44,7 @@ obj
 .env.test.local
 .env.production.local
 /react_finder_2
+outlines.txt
 
 npm-debug.log*
 yarn-debug.log*

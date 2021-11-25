@@ -8,6 +8,7 @@ import ShelfBookDetails from '../features/bookshelf/ShelfBookDetails';
 import BookForm from '../features/form/BookForm';
 import SearchEngine from '../features/search/SearchEngine';
 import SearchResults from '../features/search/SearchResults';
+import LoginForm from '../features/users/LoginForm';
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
               <Route exact path='/search' component={SearchEngine} />
               <Route path='/search/:keyWord' component={SearchResults} />
               <Route key={location.key} path={['/addBook/:id', '/manage/:id']} component={BookForm} />
+              <Route path='/login' component={LoginForm} />
             </Container>
           </>
         )}/>

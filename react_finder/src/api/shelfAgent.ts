@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import ShelvedBook from '../models/shelvedBook';
+import { User, UserFormValues } from '../models/user';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -36,8 +37,15 @@ const Books = {
     delete: (id: string) => axios.delete<void>(`/books/${id}`)
 }
 
+const Account = {
+    current: () => requests.get<User>('/account'),
+    login: (user: UserFormValues) => requests.post<User>('account/login', user),
+    register: (user: UserFormValues) => requests.post('/account/register', user)
+}
+
 const shelfAgent = {
-    Books
+    Books,
+    Account
 }
 
 export default shelfAgent;

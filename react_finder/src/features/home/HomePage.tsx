@@ -9,8 +9,8 @@ export default function HomePage() {
                     <Image size='massive' src='/assets/logo.png' alt='logo' style={{marginBottom: 12}} />
                     BookFinder
                 </Header>
-                <Button as={Link} to='/books' size='huge' inverted>
-                    Visit Bookshelf!
+                <Button as={Link} to='/login' size='huge' inverted>
+                    Login
                 </Button>
             </Container>
         </Segment>

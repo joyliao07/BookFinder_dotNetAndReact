@@ -14,10 +14,6 @@ function SearchEngine() {
     keyWord: Yup.string().required('Please enter a keyword to search.').nullable(),
   })
 
-  const [keyWord, setKeyWord] = useState({
-    keyWord: '',
-  });
-
   const handleSearch = async (searchWord) => {
     await bookStore.searchBooks(searchWord.keyWord);
     setRedirect(searchWord.keyWord);
@@ -34,7 +30,7 @@ function SearchEngine() {
         <Formik 
           validationSchema={validationSchema}
           enableReinitialize 
-          initialValues={keyWord} 
+          initialValues={{keyWord: ''}} 
           onSubmit={keyWord => handleSearch(keyWord)}>
           {({ handleSubmit, isValid, isSubmitting, dirty }) => (
               <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
