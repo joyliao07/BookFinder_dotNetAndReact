@@ -4,7 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './layout/App';
 import reportWebVitals from './reportWebVitals';
 import { store, StoreContext } from './stores/store';
-import { BrowserRouter, Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import {createBrowserHistory} from 'history';
 

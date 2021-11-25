@@ -1,6 +1,6 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { observer } from "mobx-react-lite";
-import { Button, Label } from "semantic-ui-react";
+import { Button, Header, Label } from "semantic-ui-react";
 import { useStore } from "../../stores/store";
 import TextInput from "../form/common/TextInput";
 
@@ -16,12 +16,15 @@ const LoginForm = () => {
                     <Form   className='ui form' 
                             onSubmit={handleSubmit}
                             autoComplete='off'>
+                        <Header as='h2' color='teal'
+                                content='Login' 
+                                textAlign='center'/>
                         <TextInput name='email' placeholder='Email'/>
                         <TextInput name='password' placeholder='Password' type='password'/>
                         <ErrorMessage 
                             name='error' render={() =>
                             <Label style={{marginBottom: 12}} basic color='red' content={errors.error}/>} />
-                        <Button loading={isSubmitting} positive content='Login' type='submit' fluid/>
+                        <Button loading={isSubmitting} color='teal' content='Login' type='submit' fluid/>
                     </Form>
                 )}
         </Formik>

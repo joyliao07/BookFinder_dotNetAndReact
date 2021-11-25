@@ -9,12 +9,28 @@ import BookForm from '../features/form/BookForm';
 import SearchEngine from '../features/search/SearchEngine';
 import SearchResults from '../features/search/SearchResults';
 import LoginForm from '../features/users/LoginForm';
+import { useStore } from '../stores/store';
+import { useEffect } from 'react';
+import LoadingComponent from './LoadingComponent';
+import ModalContainer from '../modals/ModalContainer';
 
 function App() {
   const location = useLocation();
+  const {userStore} = useStore();
 
+  useEffect(() => {
+    if (userStore.token) {
+      userStore.getUser().finally(() => userStore.setAppLoaded());
+    } else {
+      userStore.setAppLoaded();
+    }
+  }, [userStore]);
+
+  if (!userStore.appLoaded) return <LoadingComponent/>
+  
   return (
     <>
+      <ModalContainer/>
       <Route exact path='/' component={HomePage} />
       <Route
         path={'/(.+)'}
