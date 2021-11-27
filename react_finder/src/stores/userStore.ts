@@ -63,4 +63,16 @@ export default class UserStore {
             console.log(error);
         }
     }
+
+    register = async (credentials: UserFormValues)  => {
+        try {
+            const user = await shelfAgent.Account.register(credentials);
+            this.setToken(user.token);
+            runInAction(() => this.user = user);
+            history.push('/books');
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
+        }
+    }
 }

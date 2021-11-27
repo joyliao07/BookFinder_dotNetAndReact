@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import shelfAgent from "../api/shelfAgent";
 import ShelvedBook from "../models/shelvedBook";
 import SearchedBook from "../models/searchedBook";
+import { ServerError } from "../models/serverError";
 
 export default class BookStore {
     bookRegistry = new Map<string, ShelvedBook>();
@@ -12,6 +13,7 @@ export default class BookStore {
     editMode = false;
     loading = false;
     loadingInitial = true;
+    error: ServerError | null = null;
 
     constructor() {
         makeAutoObservable(this)
@@ -228,5 +230,8 @@ export default class BookStore {
         }
     }
 
-
+    setServerError = (error: ServerError) => {
+        this.error = error;
+    }
+    
 }
