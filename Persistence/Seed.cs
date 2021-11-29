@@ -40,7 +40,6 @@ namespace Persistence
                     Notes = "",
                     BookUrl = "https://www.googleapis.com/books/v1/volumes/IYWmAgAAQBAJ",
                     Date = DateTime.Now,
-                    UserName = "joyce",
                     Status = "To Read",
                     Favorite = false
                 },
@@ -53,7 +52,6 @@ namespace Persistence
                     Notes = "",
                     BookUrl = "https://www.googleapis.com/books/v1/volumes/goPyAQAACAAJ",
                     Date = DateTime.Now,
-                    UserName = "joyce",
                     Status = "Reading Now",
                     Favorite = false
                 },
@@ -66,7 +64,6 @@ namespace Persistence
                     Notes = "Need to get before Thanksgiving",
                     BookUrl = "https://www.googleapis.com/books/v1/volumes/q47sDwAAQBAJ",
                     Date = DateTime.Now,
-                    UserName = "joyce",
                     Status = "Done Reading",
                     Favorite = false
                 },
@@ -79,7 +76,6 @@ namespace Persistence
                     Notes = "This is my favorite!",
                     BookUrl = "https://www.googleapis.com/books/v1/volumes/3IgWDgAAQBAJ",
                     Date = DateTime.Now,
-                    UserName = "joyce",
                     Status = "To Read",
                     Favorite = true
                 }

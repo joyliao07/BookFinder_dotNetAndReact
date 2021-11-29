@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,21 +11,30 @@ namespace Application.Books
 {
     public class BookList
     {
-        public class Query : IRequest<List<Book>>
+        public class Query : IRequest<List<BookDto>>
         {
         }
 
-        public class Handler : IRequestHandler<Query, List<Book>>
+        public class Handler : IRequestHandler<Query, List<BookDto>>
         {
             private readonly DataContext _data;
-            public Handler(DataContext data)
+            private readonly IMapper _mapper;
+            public Handler(DataContext data, IMapper mapper)
             {
+                _mapper = mapper;
                 _data = data;
             }
 
-            public async Task<List<Book>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<BookDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _data.Books.ToListAsync();
+
+                List<Book> books = await _data.Books
+                            .Include(x => x.User)
+                            .ToListAsync();
+                
+                var bookDtoList = _mapper.Map<List<BookDto>>(books);
+
+                return bookDtoList;
             }
         }
     }

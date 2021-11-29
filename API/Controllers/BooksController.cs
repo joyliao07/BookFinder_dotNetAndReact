@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [AllowAnonymous]
+    // [AllowAnonymous]
     public class BooksController : BaseApiController
     {
         // private readonly IMediator _mediator;
@@ -19,7 +19,7 @@ namespace API.Controllers
 
         // http://localhost:5000/api/books
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetBooks()
+        public async Task<ActionResult<List<BookDto>>> GetBooks()
         {
             // return await _mediator.Send(new BookList.Query());
             return await Mediator.Send(new BookList.Query());

@@ -1,8 +1,8 @@
 using System;
 
-namespace Domain
+namespace Application.Books
 {
-    public class Book
+    public class BookDto
     {
         public Guid Id { get; set; }
         
@@ -24,7 +24,6 @@ namespace Domain
 
         public bool Favorite { get; set; }
 
-        public User User {get; set; }
-
+        public ReaderProfile User { get; set; }
     }
 }
