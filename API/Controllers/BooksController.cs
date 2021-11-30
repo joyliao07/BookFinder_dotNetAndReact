@@ -26,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(Guid id)
+        public async Task<ActionResult<BookDto>> GetBook(Guid id)
         {
             // return await _context.Books.FindAsync(id);
             return await Mediator.Send(new Details.Query{Id=id});

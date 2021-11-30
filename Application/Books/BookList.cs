@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Domain;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -28,13 +28,13 @@ namespace Application.Books
             public async Task<List<BookDto>> Handle(Query request, CancellationToken cancellationToken)
             {
 
-                List<Book> books = await _data.Books
-                            .Include(x => x.User)
+                var books = await _data.Books
+                            .ProjectTo<BookDto>(_mapper.ConfigurationProvider)
                             .ToListAsync();
                 
-                var bookDtoList = _mapper.Map<List<BookDto>>(books);
+                // var bookDtoList = _mapper.Map<List<BookDto>>(books);
 
-                return bookDtoList;
+                return books;
             }
         }
     }
