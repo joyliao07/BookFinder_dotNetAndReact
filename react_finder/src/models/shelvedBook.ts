@@ -9,7 +9,7 @@ interface ShelvedBook {
     date: Date | null,
     userName: string,
     status: string,
-    favorite: boolean
+    favorite: boolean | string
 }
 
 export default ShelvedBook;

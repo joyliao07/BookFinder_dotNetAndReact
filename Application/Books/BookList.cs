@@ -35,9 +35,7 @@ namespace Application.Books
                             .ProjectTo<BookDto>(_mapper.ConfigurationProvider)
                             .ToListAsync();
                 // var bookDtoList = _mapper.Map<List<BookDto>>(books);
-                Console.WriteLine(_accessor.GetUserName() + " Add book ");
-                Console.WriteLine("Add book ");
-                Console.WriteLine("Add book ");
+
                 var booksForReader = new List<BookDto>();
                 foreach(var book in books)
                 {
@@ -45,7 +43,6 @@ namespace Application.Books
                     {
                         if (book.User.Username == _accessor.GetUserName())
                         {
-                            Console.WriteLine("Add book: " + book.BookTitle);
                             booksForReader.Add(book);
                         }
                     }

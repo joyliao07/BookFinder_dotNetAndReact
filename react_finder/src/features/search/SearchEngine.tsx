@@ -11,7 +11,7 @@ function SearchEngine() {
   const [redirect, setRedirect] = useState(null);
 
   const validationSchema = Yup.object({
-    keyWord: Yup.string().required('Please enter a keyword to search.').nullable(),
+    keyWord: Yup.string().required('Enter keyword to search.').nullable(),
   })
 
   const handleSearch = async (searchWord) => {
@@ -30,13 +30,13 @@ function SearchEngine() {
         <Formik 
           validationSchema={validationSchema}
           enableReinitialize 
-          initialValues={{keyWord: ''}} 
+          initialValues={{keyword: ''}} 
           onSubmit={keyWord => handleSearch(keyWord)}>
-          {({ handleSubmit, isValid, isSubmitting, dirty }) => (
+          {({ handleSubmit, isValid }) => (
               <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
                   <SearchTextInput name='keyWord' placeholder='Search Word'/>
                   <Button 
-                      disabled={isSubmitting || !dirty || !isValid}
+                      disabled={!isValid}
                       floated='right' 
                       positive type='submit' content='Search' />
               </Form>

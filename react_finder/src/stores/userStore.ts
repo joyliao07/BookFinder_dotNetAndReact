@@ -55,7 +55,6 @@ export default class UserStore {
         window.localStorage.removeItem('jwt');
         this.user = null;
         store.bookStore.bookRegistry = new Map<string, ShelvedBook>();
-        
         history.push('/');
     }
 

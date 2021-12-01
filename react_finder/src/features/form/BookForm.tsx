@@ -30,7 +30,7 @@ const BookForm = () => {
         date: null,
         userName: '',
         status: '',
-        favorite: false
+        favorite: 'Not favorite'
     });
 
     const validationSchema = Yup.object({
@@ -39,7 +39,6 @@ const BookForm = () => {
     })
 
     useEffect(() => {
-        // console.log(typeof selectedBookToAdd);
         if (selectedBookToAdd === undefined) {
             loadBookFromShelf(id).then(book => setBook(book!));
         } else {
@@ -49,6 +48,11 @@ const BookForm = () => {
     }, [id, loadBookFromShelf, selectedBookToAdd, loadSearchedBookToForm]);
 
     function handleFormSubmit(book: ShelvedBook) {
+        if (book.favorite === 'Favorite') {
+            book.favorite = true;
+        } else {
+            book.favorite = false;
+        }
         if (book.id.length === 0) {
             let newBook = {
                 ...book,
@@ -61,8 +65,8 @@ const BookForm = () => {
     }
 
     const favoriteOptions = [
-        {text: 'My Favorite', value: true},
-        {text: 'Not My Favorite', value: false}
+        {text: 'Favorite', value: 'Favorite'},
+        {text: 'Not Favorite', value: 'Not favorite'}
     ]
 
     const statusOptions = [
@@ -113,7 +117,7 @@ const BookForm = () => {
                             <Button 
                                 disabled={isSubmitting || !isValid}
                                 loading={loading} floated='right' 
-                                positive type='submit' content='Submit' />
+                                positive type='submit' content='Save' />
                             <Button as={Link} to='/books' floated='right' type='button' content='Cancel' />
                         </Form>
                     )}

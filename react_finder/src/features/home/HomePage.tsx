@@ -12,13 +12,19 @@ const HomePage = () => {
         <Segment inverted textAlign='center' vertical className='masthead'>
             <Container text>
                 <Header as='h1' inverted>
-                    <Image size='massive' src='/assets/logo.png' alt='logo' style={{marginBottom: 12}} />
+                    <Image size='massive' src='/read.png' alt='logo' style={{marginBottom: 12}} />
                     BookFinder
                 </Header>
                 {userStore.isLoggedIn ? (
                     <>
+                    <div style={{marginBottom: 30}}>
+                        <h1 style={{marginBottom: 25}}>Welcome {userStore.user.displayName}! </h1>
                         <Button as={Link} to='/books' size='huge' inverted>
                             Go to Bookshelf!
+                        </Button>
+                    </div>
+                        <Button onClick={userStore.logout} size='medium' inverted>
+                            Logout
                         </Button>
                     </>
                 ) : (

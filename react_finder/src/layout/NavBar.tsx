@@ -10,7 +10,7 @@ var NavBar = () => {
         <Menu inverted fixed='top'>
             <Container>
                 <Menu.Item as={NavLink} exact to='/' header>
-                    <img src='/assets/logo.png' alt='logo' style={{ marginRight: '10px' }} />
+                    <img src='/read.png' alt='logo' style={{ marginRight: '10px' }} />
                     BookFinder
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/books' name='Bookshelf'/>

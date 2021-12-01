@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import { Button, Icon, Item, Segment } from 'semantic-ui-react';
+import { Button, Icon, Item, Segment, Image } from 'semantic-ui-react';
 import ShelvedBook from '../../models/shelvedBook';
 import { useStore } from '../../stores/store';
 
@@ -27,6 +27,16 @@ const ShelfItem = ({ book }: Props) => {
                         </Item.Content>
                     </Item>
                 </Item.Group>
+            </Segment>
+            <Segment>
+                {(book.favorite) && 
+                    <>
+                        <Icon name='favorite'/>Favorite
+                    </>}
+                {(!book.favorite) && 
+                    <>
+                        <Icon name='dont'/>Not favorite
+                    </>}
             </Segment>
             <Segment>
                 <Icon name='calendar'/>Last updated on {format(book.date, 'MMM dd, yyyy')}

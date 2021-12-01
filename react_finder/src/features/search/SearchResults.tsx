@@ -25,7 +25,7 @@ function SearchResults() {
       {showModal && <SearchDetails handleCloseModal={handleCloseModal}/>}
 
       <Container style={{marginTop: '7em'}}>
-          <h3>List of search results</h3>
+          <h3>Search results</h3>
           {searchedBooks.map( book => {
               return(
                   <Card fluid key={book.id}>

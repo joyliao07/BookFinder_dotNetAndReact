@@ -21,6 +21,11 @@ const ShelfList = () => {
                 ))}
             </Fragment>
         ))}
+        {(groupedBooks.length == 0) && 
+                <Header as='h2' color='blue'>
+                    There is no book on your bookshelf.
+                </Header>
+        }
     </>
     )
 }
