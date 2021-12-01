@@ -22,7 +22,7 @@ axios.interceptors.request.use(config => {
 });
 
 axios.interceptors.response.use(async response => {
-    await sleep(500);
+    await sleep(800);
     return response;
 }, (error: AxiosError) => {
     const {data, status, config} = error.response!;
@@ -71,7 +71,8 @@ const Books = {
     details: (id: string) => requests.get<ShelvedBook>(`/books/${id}`),
     create: (book: ShelvedBook) => axios.post<void>('/books', book),
     update: (book: ShelvedBook) => axios.put<void>(`/books/${book.id}`, book),
-    delete: (id: string) => axios.delete<void>(`/books/${id}`)
+    delete: (id: string) => axios.delete<void>(`/books/${id}`),
+    search: (keyword: string) => axios.get(`/search/${keyword}`)
 }
 
 const Account = {

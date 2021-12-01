@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import { Button, Icon, Item, Segment, Image } from 'semantic-ui-react';
+import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import ShelvedBook from '../../models/shelvedBook';
 import { useStore } from '../../stores/store';
 

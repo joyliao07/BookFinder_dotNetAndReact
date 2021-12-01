@@ -1,4 +1,3 @@
-import axios from "axios";
 import { makeAutoObservable, runInAction } from "mobx";
 import shelfAgent from "../api/shelfAgent";
 import ShelvedBook from "../models/shelvedBook";
@@ -120,14 +119,15 @@ export default class BookStore {
         var formattedbooks = [];
         this.loadingInitial = true;
         try {
-            await axios.get<SearchedBook[]>(`http://localhost:5000/api/search/${keyWord}`).then((res: any) => {
-                formattedbooks = this.formatSearchResults(res.data.items);
+            var results = await shelfAgent.Books.search(keyWord);
+            runInAction(() => {
+                formattedbooks = this.formatSearchResults(results.data.items);
                 this.searchedBooks = formattedbooks;
-                this.setLoadingInitial(false);
-            });
+                this.loadingInitial = false;
+            })
         } catch (error) {
             console.log(error); 
-            this.setLoadingInitial(false);
+            this.loadingInitial =false;
         }
         return formattedbooks;
     }
@@ -204,12 +204,6 @@ export default class BookStore {
             formattedBooks.push(book);
         }
         return formattedBooks;
-    }
-
-    setBookToAdd = (info: any) => {
-        console.log("bookStore: setBookToAdd");
-        
-
     }
 
     addBookToShelf = async (book: ShelvedBook) => {

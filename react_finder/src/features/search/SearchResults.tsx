@@ -1,12 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Container, Card, Image } from 'semantic-ui-react';
 import SearchDetails from './SearchDetails';
 import { useStore } from '../../stores/store';
+import LoadingComponent from '../../layout/LoadingComponent';
+import { observer } from 'mobx-react-lite';
+import { useParams } from 'react-router';
 
 function SearchResults() {
   const [showModal, setShowModal] = useState(false);
   const {bookStore} = useStore();
-  const {searchedBooks} = bookStore;
+  const {searchBooks, searchedBooks, loadingInitial} = bookStore;
+  const {keyWord} = useParams<{keyWord: string}>();
+
+  useEffect(() => {
+    searchBooks(keyWord);
+  }, [searchBooks, keyWord]);
 
   const handleSeeBookDetails = (id: string) => {
     const book = searchedBooks.find(a => a.id === id);
@@ -19,6 +27,8 @@ function SearchResults() {
   const handleCloseModal = () => {
     setShowModal(false);
   }
+
+  if (loadingInitial) return <LoadingComponent content='Loading search results' />
 
   return (
     <>
@@ -49,4 +59,4 @@ function SearchResults() {
   );
 }
 
-export default SearchResults;
+export default observer(SearchResults);

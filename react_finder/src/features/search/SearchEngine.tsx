@@ -3,11 +3,9 @@ import { Button, Container } from 'semantic-ui-react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import SearchTextInput from './SearchTextInput';
-import { useStore } from '../../stores/store';
 import { Redirect } from 'react-router-dom';
 
 function SearchEngine() {
-  const {bookStore} = useStore();
   const [redirect, setRedirect] = useState(null);
 
   const validationSchema = Yup.object({
@@ -15,7 +13,6 @@ function SearchEngine() {
   })
 
   const handleSearch = async (searchWord) => {
-    await bookStore.searchBooks(searchWord.keyWord);
     setRedirect(searchWord.keyWord);
   }
 
@@ -30,7 +27,7 @@ function SearchEngine() {
         <Formik 
           validationSchema={validationSchema}
           enableReinitialize 
-          initialValues={{keyword: ''}} 
+          initialValues={{keyWord: ''}} 
           onSubmit={keyWord => handleSearch(keyWord)}>
           {({ handleSubmit, isValid }) => (
               <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>

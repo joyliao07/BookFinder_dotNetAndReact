@@ -3,7 +3,6 @@ import { history } from "..";
 import shelfAgent from "../api/shelfAgent";
 import ShelvedBook from "../models/shelvedBook";
 import { User, UserFormValues } from "../models/user";
-import BookStore from "./bookStore";
 import { store } from "./store";
 
 
