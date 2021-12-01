@@ -11,7 +11,7 @@ const ShelfList = () => {
 
     return(
         <>
-        {groupedBooks.map(([group, books]) => (
+        {(groupedBooks.length > 0) && groupedBooks.map(([group, books]) => (
             <Fragment key={group}>
                 <Header sub color='blue'>
                     {group}

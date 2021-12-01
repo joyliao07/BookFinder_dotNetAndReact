@@ -1,7 +1,9 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { history } from "..";
 import shelfAgent from "../api/shelfAgent";
+import ShelvedBook from "../models/shelvedBook";
 import { User, UserFormValues } from "../models/user";
+import BookStore from "./bookStore";
 import { store } from "./store";
 
 
@@ -52,6 +54,8 @@ export default class UserStore {
         this.setToken(null);
         window.localStorage.removeItem('jwt');
         this.user = null;
+        store.bookStore.bookRegistry = new Map<string, ShelvedBook>();
+        
         history.push('/');
     }
 
