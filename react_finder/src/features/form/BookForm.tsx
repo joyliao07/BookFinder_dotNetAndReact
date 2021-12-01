@@ -14,7 +14,7 @@ import NoteInput from './common/NoteInput';
 
 const BookForm = () => {
     const history = useHistory();
-    const {bookStore} = useStore();
+    const {bookStore, modalStore} = useStore();
     const {addBookToShelf, updateBookFromShelf, 
             loading, loadBookFromShelf, selectedBookToAdd, loadSearchedBookToForm, loadingInitial} = bookStore;
     const {id} = useParams<{id: string}>();
@@ -42,10 +42,11 @@ const BookForm = () => {
         if (selectedBookToAdd === undefined) {
             loadBookFromShelf(id).then(book => setBook(book!));
         } else {
+            modalStore.closeModal();
             const book = loadSearchedBookToForm();
             setBook(book);
         }
-    }, [id, loadBookFromShelf, selectedBookToAdd, loadSearchedBookToForm]);
+    }, [id, loadBookFromShelf, selectedBookToAdd, loadSearchedBookToForm, modalStore]);
 
     function handleFormSubmit(book: ShelvedBook) {
         if (book.favorite === 'Favorite') {

@@ -2,17 +2,10 @@ import { Link } from "react-router-dom";
 import { Button, Card, Image, Segment } from "semantic-ui-react";
 import { useStore } from "../../stores/store";
 
-interface Props {
-    handleCloseModal: () => void
-}
 
-const SearchDetails = (props :Props) => {
+const SearchDetails = () => {
     const {bookStore} = useStore();
     const {selectedBookToAdd: book} = bookStore;
-
-    const handleCloseModal = () => {
-        props.handleCloseModal();
-    }
 
     return(
         <Card fluid>
@@ -28,8 +21,6 @@ const SearchDetails = (props :Props) => {
                     {(book.publisher !== '') && <p>Publisher: {book.publisher}</p>}
                     {(book.publishedDate !== '') && <p>Publish date: {book.publishedDate}</p>}
                 </div>
-
-                
                 {(book.category !== '') && 
                     <Segment.Group>
                         <Segment>Category: {book.category}</Segment>
@@ -65,15 +56,10 @@ const SearchDetails = (props :Props) => {
                             <a href={book.buyLink}>{book.buyLink}</a>
                         </Segment>}
                 </Segment.Group>
-
             </Card.Content>
             <Button as={Link} to={`/addBook/${book.id}`} color='olive' floated='right'>
                 Add To Shelf
             </Button>
-            <Button color='grey' floated='right' onClick={handleCloseModal}>
-                Close
-            </Button>
-
         </Card>
     )
 }

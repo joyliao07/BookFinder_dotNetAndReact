@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button, Container, Card, Image } from 'semantic-ui-react';
 import SearchDetails from './SearchDetails';
 import { useStore } from '../../stores/store';
@@ -7,8 +7,7 @@ import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router';
 
 function SearchResults() {
-  const [showModal, setShowModal] = useState(false);
-  const {bookStore} = useStore();
+  const {bookStore, modalStore} = useStore();
   const {searchBooks, searchedBooks, loadingInitial} = bookStore;
   const {keyWord} = useParams<{keyWord: string}>();
 
@@ -18,22 +17,14 @@ function SearchResults() {
 
   const handleSeeBookDetails = (id: string) => {
     const book = searchedBooks.find(a => a.id === id);
-    // Update locally to show detailed modal:
-    setShowModal(true);
-    // Update store:
     bookStore.selectedBookToAdd = book;
-  }
-
-  const handleCloseModal = () => {
-    setShowModal(false);
+    modalStore.openModal(<SearchDetails />)
   }
 
   if (loadingInitial) return <LoadingComponent content='Loading search results' />
 
   return (
     <>
-      {showModal && <SearchDetails handleCloseModal={handleCloseModal}/>}
-
       <Container style={{marginTop: '7em'}}>
           <h3>Search results</h3>
           {searchedBooks.map( book => {
