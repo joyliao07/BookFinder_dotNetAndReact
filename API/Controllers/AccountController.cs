@@ -31,13 +31,17 @@ namespace API.Controllers
             // var user = await _userManager.FindByEmailAsync(loginDto.Email);
             var user = await _userManager.Users
                 .FirstOrDefaultAsync(x => x.Email == loginDto.Email);
-            if (user == null) return Unauthorized();
+            if (user == null) {
+                System.Console.WriteLine("no user found per email.");
+                return Unauthorized();
+            }
             
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if (result.Succeeded)
             {
                 return CreateUserDto(user);
             }
+            System.Console.WriteLine("Login password failed to match.");
             return Unauthorized();
         }
 
