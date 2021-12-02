@@ -5,13 +5,13 @@ import { store } from '../stores/store';
 import { history } from '..';
 import { toast } from 'react-toastify';
 
-const sleep = (delay: number) => {
-    return new Promise((resolve) => {
-        setTimeout(resolve, delay)
-    })
-}
+// const sleep = (delay: number) => {
+//     return new Promise((resolve) => {
+//         setTimeout(resolve, delay)
+//     })
+// }
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(config => {
     const token = store.userStore.token;
@@ -22,7 +22,7 @@ axios.interceptors.request.use(config => {
 });
 
 axios.interceptors.response.use(async response => {
-    await sleep(2500);
+    // await sleep(2500);
     return response;
 }, (error: AxiosError) => {
     const {data, status, config} = error.response!;

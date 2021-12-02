@@ -18,7 +18,7 @@ namespace API.Controllers
             _config = config;
         }
 
-        // http://localhost:5000/api/search/"{keyWord}"
+        // .../api/search/"{keyWord}"
         [HttpGet("{keyWord}")]
         public async Task<ActionResult> SearchBooks(string keyWord)
         {

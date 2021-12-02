@@ -17,7 +17,7 @@ namespace API.Controllers
         //     _mediator = mediator;
         // }
 
-        // http://localhost:5000/api/books
+        // .../api/books
         [HttpGet]
         public async Task<ActionResult<List<BookDto>>> GetBooks()
         {
