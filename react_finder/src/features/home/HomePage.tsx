@@ -18,7 +18,7 @@ const HomePage = () => {
                 {userStore.isLoggedIn ? (
                     <>
                     <div style={{marginBottom: 30}}>
-                        <h1 style={{marginBottom: 25}}>Welcome {userStore.user.displayName}! </h1>
+                        <h1 style={{marginBottom: 25}}>Welcome back, {userStore.user.displayName}! </h1>
                         <Button as={Link} to='/books' size='huge' inverted>
                             Go to Bookshelf!
                         </Button>

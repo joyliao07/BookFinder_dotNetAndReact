@@ -45,7 +45,7 @@ const SearchDetails = () => {
                         <Segment>
                             Page Count: {book.pageCount}
                         </Segment>}
-                    {(book.industryIdentifiersType !== undefined) &&
+                    {(book.industryIdentifier.length > 3) &&
                         <Segment>
                             <p>Industry Identifier:</p>
                             {book.industryIdentifiersType}. {book.industryIdentifier}

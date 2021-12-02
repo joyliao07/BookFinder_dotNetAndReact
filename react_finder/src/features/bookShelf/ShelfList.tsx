@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Fragment } from "react";
-import { Header } from "semantic-ui-react";
+import { NavLink } from "react-router-dom";
+import { Button, Header, Icon } from "semantic-ui-react";
 import { useStore } from "../../stores/store";
 import ShelfItem from "./ShelfItem";
 
@@ -22,9 +23,13 @@ const ShelfList = () => {
             </Fragment>
         ))}
         {(groupedBooks.length === 0) && 
+            <>
                 <Header as='h2' color='blue'>
                     There is no book on your bookshelf.
                 </Header>
+                <Icon name='hand point right outline' size='large' style={{marginLeft: '10%'}}/>
+                <Button as={NavLink} to='/search' color='teal' content='Search Books' />
+            </>
         }
     </>
     )
