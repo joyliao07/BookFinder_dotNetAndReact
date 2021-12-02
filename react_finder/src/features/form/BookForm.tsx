@@ -118,7 +118,7 @@ const BookForm = () => {
                             <Button 
                                 disabled={isSubmitting || !isValid}
                                 loading={loading} floated='right' 
-                                positive type='submit' content='Save' />
+                                color='olive' type='submit' content='Save' />
                             <Button as={Link} to='/books' floated='right' type='button' content='Cancel' />
                         </Form>
                     )}

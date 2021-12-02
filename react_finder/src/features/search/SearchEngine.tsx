@@ -4,15 +4,18 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import SearchTextInput from './SearchTextInput';
 import { Redirect } from 'react-router-dom';
+import { useStore } from '../../stores/store';
 
 function SearchEngine() {
   const [redirect, setRedirect] = useState(null);
+  const {bookStore} = useStore();
 
   const validationSchema = Yup.object({
     keyWord: Yup.string().required('Enter keyword to search.').nullable(),
   })
 
   const handleSearch = async (searchWord) => {
+    bookStore.loadingInitial = true;
     setRedirect(searchWord.keyWord);
   }
 

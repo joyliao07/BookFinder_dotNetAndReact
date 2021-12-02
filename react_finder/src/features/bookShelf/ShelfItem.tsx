@@ -48,11 +48,11 @@ const ShelfItem = ({ book }: Props) => {
                 <Button 
                     as={Link}
                     to={`/books/${book.id}`}
-                    color='blue'
+                    color='olive'
                     floated='right'
-                    content='View'/>
+                    content='View Details'/>
                 <Button 
-                    color='red'
+                    color='orange'
                     floated='right'
                     content='Delete'
                     onClick={() => deleteBook(book.id)}/>

@@ -21,6 +21,8 @@ var NavBar = () => {
                     <Menu.Item position='right'>
                         <Dropdown pointing='top left' text={`Wecome ${userStore.user?.displayName}`}>
                             <Dropdown.Menu>
+                                <Dropdown.Item as={NavLink} to='/books' text='My Bookshelf'  icon='book'/>
+                                <Dropdown.Item as={NavLink} to='/search' text='Find Books'  icon='search'/>
                                 <Dropdown.Item onClick={userStore.logout} text='Logout'  icon='power'/>
                             </Dropdown.Menu>
                         </Dropdown>

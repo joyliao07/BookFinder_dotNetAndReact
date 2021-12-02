@@ -14,7 +14,7 @@ var ShelfDashboard = () => {
       if (bookRegistry.size <= 1) loadBooksFromShelf();
     }, [bookRegistry.size, loadBooksFromShelf])
   
-    if (bookStore.loadingInitial) return <LoadingComponent content='Loading from shelf' />
+    if (bookStore.loadingInitial) return <LoadingComponent content='Loading bookshelf' />
 
     return(
         <Grid>

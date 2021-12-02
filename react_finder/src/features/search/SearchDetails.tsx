@@ -53,12 +53,12 @@ const SearchDetails = () => {
                     {(book.buyLink !== '') &&
                         <Segment>
                             <h5>Purchase Link:</h5> 
-                            <a href={book.buyLink}>{book.buyLink}</a>
+                            <a href={book.buyLink} target="_blank" rel="noopener noreferrer">{book.buyLink}</a>
                         </Segment>}
                 </Segment.Group>
             </Card.Content>
             <Button as={Link} to={`/addBook/${book.id}`} color='olive' floated='right'>
-                Add To Shelf
+                Add To Bookshelf
             </Button>
         </Card>
     )

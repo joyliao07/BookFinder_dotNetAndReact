@@ -21,7 +21,7 @@ function SearchResults() {
     modalStore.openModal(<SearchDetails />)
   }
 
-  if (loadingInitial) return <LoadingComponent content='Loading search results' />
+  if (loadingInitial) return <LoadingComponent content='Loading search results'/>
 
   return (
     <>
@@ -38,7 +38,7 @@ function SearchResults() {
                     <Card.Content>
                       {(book.author !== '') && <p>By {book.author}</p>}
                       {(book.publishedDate !== '') && <p>Publish date: {book.publishedDate}</p>}
-                      <Button color='blue' 
+                      <Button color='olive' 
                               floated='right'
                               onClick={() => handleSeeBookDetails(book.id)}>More Details</Button>
                     </Card.Content>
