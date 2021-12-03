@@ -32,7 +32,7 @@ namespace API.Controllers
             var user = await _userManager.Users
                 .FirstOrDefaultAsync(x => x.Email == loginDto.Email);
             if (user == null) {
-                System.Console.WriteLine("no user found per email.");
+                System.Console.WriteLine("No user found per email.");
                 return Unauthorized();
             }
             
