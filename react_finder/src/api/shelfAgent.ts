@@ -22,8 +22,9 @@ axios.interceptors.request.use(config => {
 });
 
 axios.interceptors.response.use(async response => {
+    const res = await response;
     // await sleep(2500);
-    return response;
+    return res;
 }, (error: AxiosError) => {
     const {data, status, config} = error.response!;
     switch (status) {
